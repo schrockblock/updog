@@ -184,10 +184,10 @@ public class SeekArc extends View {
 
         // Defaults, may need to link this into theme settings
         int arcColor = res.getColor(R.color.progress_gray);
-        int progressColor = res.getColor(android.R.color.holo_blue_light);
+        int progressColor = res.getColor(android.R.color.holo_red_light);
         int thumbHalfheight = 0;
         int thumbHalfWidth = 0;
-        mThumb = res.getDrawable(R.drawable.seek_arc_control_selector);
+        mThumb = res.getDrawable(R.drawable.redline_selector);
         // Convert progress width to pixels for current density
         mProgressWidth = (int) (mProgressWidth * density);
 
@@ -522,6 +522,14 @@ public class SeekArc extends View {
             mTouchIgnoreRadius = mArcRadius
                     - Math.min(thumbHalfWidth, thumbHalfheight);
         }
+    }
+
+    public int getArcRadius(){
+        return mArcRadius;
+    }
+
+    public void setThumb(int resId){
+        mThumb = getResources().getDrawable(resId);
     }
 
     public void setClockwise(boolean isClockwise) {

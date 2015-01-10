@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/seek_arc"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/iv_redline"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/commuter_wear_concept_v022_icon_lineindicator_red"/>
+
+        <ImageView
+            android:id="@+id/iv_bline"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/commuter_wear_concept_v022_icon_lineindicator_green_b"/>
+
+        <ImageView
+            android:id="@+id/iv_cline"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/commuter_wear_concept_v022_icon_lineindicator_green_c"/>
+
+        <ImageView
+            android:id="@+id/iv_dline"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/commuter_wear_concept_v022_icon_lineindicator_green_d"/>
+
+        <ImageView
+            android:id="@+id/iv_eline"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/commuter_wear_concept_v022_icon_lineindicator_green_e"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#ed5837"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_previous_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:text="Station"/>
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/tv_dest1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tv_dest2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_below="@+id/tv_dest1"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tv_dest3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_below="@+id/tv_dest2"
+            android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#ed5837"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tv_next_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Station"/>
+
+        </LinearLayout>
+
+</RelativeLayout>

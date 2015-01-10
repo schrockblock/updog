@@ -28,7 +28,12 @@
     </style>
     
     <style name="SeekArcLight">
+        <item name="thumb">@drawable/redline_selector</item>
         <item name="arcColor">@color/progress_gray</item>
+    </style>
+
+    <style name="AppTheme" parent="android:Theme.DeviceDefault">
+        <item name="seekArcStyle">@style/SeekArcLight</item>
     </style>
  
 </resources>
