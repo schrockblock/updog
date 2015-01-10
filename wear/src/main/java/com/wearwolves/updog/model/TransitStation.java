@@ -1,8 +1,13 @@
 package com.wearwolves.updog.model;
 
+import com.android.volley.VolleyError;
 import com.google.gson.annotations.SerializedName;
+import com.wearwolves.updog.com.request.GetStopsByStation;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by adam on 1/10/15.
@@ -36,5 +41,11 @@ public class TransitStation {
                 mLines.add(line);
             }
         }
+    }
+
+    public void getStops(GetStopsByStation.OnResultCallback callback) throws JSONException {
+        //call API, get stops on this lat/long
+        GetStopsByStation request = new GetStopsByStation();
+        request.get(this, callback);
     }
 }
