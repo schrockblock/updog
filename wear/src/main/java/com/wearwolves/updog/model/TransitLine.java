@@ -20,36 +20,36 @@ public class TransitLine {
     @SerializedName("shorthand")
     public String mShorthand;
     @SerializedName("stops")
-    public LinkedList<TransitStop> mStops;
-    public transient HashMap<String, TransitStop> mLookup;
+    public LinkedList<TransitStation> mStops;
+    public transient HashMap<String, TransitStation> mLookup;
 
-    public void init(List<TransitStop> stops) {
-        //mStops = new LinkedList<TransitStop>();
-        mLookup = new HashMap<String, TransitStop>();
-        for(TransitStop stop : stops) {
+    public void init(List<TransitStation> stops) {
+        //mStops = new LinkedList<TransitStation>();
+        mLookup = new HashMap<String, TransitStation>();
+        for(TransitStation stop : stops) {
             //mStops.add(stop);
             mLookup.put(stop.mIdentifier, stop);
         }
     }
 
-    public TransitStop next(TransitStop current) {
+    public TransitStation next(TransitStation current) {
         int pos = mStops.indexOf(current);
-        TransitStop next = mStops.get(pos + 1);
+        TransitStation next = mStops.get(pos + 1);
         return next;
     }
 
-    public boolean hasNext(TransitStop current) {
+    public boolean hasNext(TransitStation current) {
         int pos = mStops.indexOf(current);
         return mStops.size() > (pos + 1);
     }
 
-    public TransitStop previous(TransitStop current) {
+    public TransitStation previous(TransitStation current) {
         int pos = mStops.indexOf(current);
-        TransitStop previous =mStops.get(pos - 1);
+        TransitStation previous =mStops.get(pos - 1);
         return previous;
     }
 
-    public boolean hasPrevious(TransitStop current) {
+    public boolean hasPrevious(TransitStation current) {
         int pos = mStops.indexOf(current);
         return pos > 0;
     }
