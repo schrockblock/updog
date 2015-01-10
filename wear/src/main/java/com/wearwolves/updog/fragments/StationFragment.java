@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.wearable.view.WatchViewStub;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wearwolves.updog.R;
+import com.wearwolves.updog.model.TransitStation;
 import com.wearwolves.updog.model.TransitStop;
 import com.wearwolves.updog.views.SeekArc;
 
@@ -28,7 +28,7 @@ public class StationFragment extends Fragment implements View.OnClickListener{
     private TextView mDestination3;
     private TextView mPreviousStationName;
     private TextView mNextStationName;
-    private TransitStop mStop;
+    private TransitStation mStation;
 
     public StationFragment() {
         super();
@@ -52,10 +52,10 @@ public class StationFragment extends Fragment implements View.OnClickListener{
                 mPreviousStationName = (TextView) mRootView.findViewById(R.id.tv_previous_station);
                 mNextStationName = (TextView) mRootView.findViewById(R.id.tv_next_station);
 
-                if (mStop != null){
-                    mStationName.setText(mStop.mParentStationName);
+                if (mStation != null){
+                    mStationName.setText(mStation.mParentStationName);
 
-                    if (mStop.mLines != null && mStop.mLines.size() > 1){
+                    if (mStation.mLines != null && mStation.mLines.size() > 1){
                         mSeekArc.setVisibility(View.VISIBLE);
                     }else {
                         mSeekArc.setVisibility(View.GONE);
@@ -66,8 +66,8 @@ public class StationFragment extends Fragment implements View.OnClickListener{
         return mRootView;
     }
 
-    public void setStop(TransitStop stop) {
-        this.mStop = stop;
+    public void setStop(TransitStation station) {
+        this.mStation = station;
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.wearwolves.updog.R;
 import com.wearwolves.updog.fragments.StationFragment;
 import com.wearwolves.updog.interfaces.OnLineChangedListener;
 import com.wearwolves.updog.model.TransitLine;
+import com.wearwolves.updog.model.TransitStation;
 import com.wearwolves.updog.model.TransitStop;
 
 import java.util.ArrayList;
@@ -21,14 +22,17 @@ public class LineGridPagerAdapter extends FragmentGridPagerAdapter implements On
     private final Context mContext;
     private TransitLine mLine;
 
-    public LineGridPagerAdapter(Context context, FragmentManager fm) {
+    public LineGridPagerAdapter(Context context, FragmentManager fm, TransitLine line) {
         super(fm);
         mContext = context;
+        mLine = line;
     }
 
     @Override
     public Fragment getFragment(int row, int column) {
-        TransitStop stop = new TransitStop();
+        TransitStation stop = mLine.mStations.get(row);
+        mLine.setCurrentStation(stop);
+        /*
         switch (row){
             case 0:
                 stop.mParentStationName = "Central Square";
@@ -46,6 +50,7 @@ public class LineGridPagerAdapter extends FragmentGridPagerAdapter implements On
                 stop.mLines.add(new TransitLine());
                 break;
         }
+        */
         StationFragment fragment = new StationFragment();
         fragment.setStop(stop);
         return fragment;
@@ -53,7 +58,7 @@ public class LineGridPagerAdapter extends FragmentGridPagerAdapter implements On
 
     @Override
     public int getRowCount() {
-        return 4;
+        return mLine.mStations.size();
     }
 
     @Override

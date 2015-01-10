@@ -9,7 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wearwolves.updog.adapters.LineGridPagerAdapter;
+import com.wearwolves.updog.model.TransitLine;
+import com.wearwolves.updog.util.LinesUtil;
 import com.wearwolves.updog.views.SeekArc;
+
+import java.util.ArrayList;
 
 public class LineActivity extends Activity {
 
@@ -23,8 +27,14 @@ public class LineActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
+                TransitLine line = LinesUtil.getSingleLine("redline");
+                line.init(line.mStations);
+                ArrayList<TransitLine> orange = new ArrayList<TransitLine>();
+                orange.add(LinesUtil.getSingleLine("orangeline"));
+                orange.add(line);
+                line.mLookup.get("70077").mLines = orange;
                 mGridPager = (GridViewPager) stub.findViewById(R.id.pager);
-                mGridPager.setAdapter(new LineGridPagerAdapter(LineActivity.this, getFragmentManager()));
+                mGridPager.setAdapter(new LineGridPagerAdapter(LineActivity.this, getFragmentManager(), line));
             }
         });
     }
