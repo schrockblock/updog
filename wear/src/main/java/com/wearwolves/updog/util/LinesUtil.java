@@ -1,9 +1,7 @@
 package com.wearwolves.updog.util;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.wearwolves.updog.model.TransitLine;
-
 import java.util.HashMap;
 
 /**
@@ -110,7 +108,114 @@ public class LinesUtil {
             "}" +
             "]" +
             "}";
-    public static String hardcodedOrange = "";
+    public static String hardcodedOrange = "{" +
+            "\"name\" : \"Orange Line\"," +
+            "\"identifier\" : \"orangeline\"," +
+            "\"variant\" : \"\"," +
+            "\"shorthand\" : \"OL\"," +
+            "\"stops\" : " +
+            "[" +
+            "{" +
+            "\"stop_order\": \"1\"," +
+            "\"stop_id\": \"70036\"," +
+            "\"stop_name\": \"Oak Grove\"," +
+            "\"parent_station\": \"place-ogmnl\"," +
+            "\"parent_station_name\": \"Oak Grove\"," +
+            "\"stop_lat\": \"42.43668\"," +
+            "\"stop_lon\": \"-71.071097\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"2\"," +
+            "\"stop_id\": \"70034\"," +
+            "\"stop_name\": \"Malden - Inbound\"," +
+            "\"parent_station\": \"place-mlmnl\"," +
+            "\"parent_station_name\": \"Malden Center\"," +
+            "\"stop_lat\": \"42.426632\"," +
+            "\"stop_lon\": \"-71.07411\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"3\"," +
+            "\"stop_id\": \"70032\"," +
+            "\"stop_name\": \"Wellington - Inbound\"," +
+            "\"parent_station\": \"place-welln\"," +
+            "\"parent_station_name\": \"Wellington\"," +
+            "\"stop_lat\": \"42.40237\"," +
+            "\"stop_lon\": \"-71.077082\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"4\"," +
+            "\"stop_id\": \"70278\"," +
+            "\"stop_name\": \"Assembly - Inbound\"," +
+            "\"parent_station\": \"place-astao\"," +
+            "\"parent_station_name\": \"Assembly\"," +
+            "\"stop_lat\": \"42.392811\"," +
+            "\"stop_lon\": \"-71.077257\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"5\"," +
+            "\"stop_id\": \"70030\"," +
+            "\"stop_name\": \"Sullivan Square - Inbound\"," +
+            "\"parent_station\": \"place-sull\"," +
+            "\"parent_station_name\": \"Sullivan Square\"," +
+            "\"stop_lat\": \"42.383975\"," +
+            "\"stop_lon\": \"-71.076994\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"6\"," +
+            "\"stop_id\": \"70028\"," +
+            "\"stop_name\": \"Community College - Inbound\"," +
+            "\"parent_station\": \"place-ccmnl\"," +
+            "\"parent_station_name\": \"Community College\"," +
+            "\"stop_lat\": \"42.373622\"," +
+            "\"stop_lon\": \"-71.069533\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"7\"," +
+            "\"stop_id\": \"70026\"," +
+            "\"stop_name\": \"North Station - Orange Line Inbound\"," +
+            "\"parent_station\": \"place-north\"," +
+            "\"parent_station_name\": \"North Station\"," +
+            "\"stop_lat\": \"42.365577\"," +
+            "\"stop_lon\": \"-71.06129\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"8\"," +
+            "\"stop_id\": \"70024\"," +
+            "\"stop_name\": \"Haymarket - Orange Line Inbound\"," +
+            "\"parent_station\": \"place-haecl\"," +
+            "\"parent_station_name\": \"Haymarket\"," +
+            "\"stop_lat\": \"42.363021\"," +
+            "\"stop_lon\": \"-71.05829\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"9\"," +
+            "\"stop_id\": \"70022\"," +
+            "\"stop_name\": \"State Street - to Forest Hills\"," +
+            "\"parent_station\": \"place-state\"," +
+            "\"parent_station_name\": \"State Street\"," +
+            "\"stop_lat\": \"42.358978\"," +
+            "\"stop_lon\": \"-71.057598\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"10\"," +
+            "\"stop_id\": \"70020\"," +
+            "\"stop_name\": \"Downtown Crossing - to Forest Hills\"," +
+            "\"parent_station\": \"place-dwnxg\"," +
+            "\"parent_station_name\": \"Downtown Crossing\"," +
+            "\"stop_lat\": \"42.355518\"," +
+            "\"stop_lon\": \"-71.060225\"" +
+            "}," +
+            "{" +
+            "\"stop_order\": \"11\"," +
+            "\"stop_id\": \"70018\"," +
+            "\"stop_name\": \"Chinatown - Outbound\"," +
+            "\"parent_station\": \"place-chncl\"," +
+            "\"parent_station_name\": \"Chinatown\"," +
+            "\"stop_lat\": \"42.352547\"," +
+            "\"stop_lon\": \"-71.062752\"" +
+            "}" +
+            "]" +
+            "}";
 
     public static HashMap<String, TransitLine> getAllLines() {
         Gson gson = new Gson();

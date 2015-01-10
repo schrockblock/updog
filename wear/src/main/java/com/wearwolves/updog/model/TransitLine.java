@@ -1,5 +1,8 @@
 package com.wearwolves.updog.model;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
@@ -20,37 +23,92 @@ public class TransitLine {
     @SerializedName("shorthand")
     public String mShorthand;
     @SerializedName("stops")
-    public LinkedList<TransitStop> mStops;
-    public transient HashMap<String, TransitStop> mLookup;
+    public LinkedList<TransitStation> mStations;
+    public transient HashMap<String, TransitStation> mLookup;
 
-    public void init(List<TransitStop> stops) {
-        //mStops = new LinkedList<TransitStop>();
-        mLookup = new HashMap<String, TransitStop>();
-        for(TransitStop stop : stops) {
-            //mStops.add(stop);
-            mLookup.put(stop.mIdentifier, stop);
+    private TransitStation mCurrentStation = null;
+
+    public TransitStation getCurrentStop() {
+        return mCurrentStation;
+    }
+
+    public void setCurrentStation(TransitStation station) {
+        mCurrentStation = station;
+    }
+
+    public void setCurrentStation(int position) {
+        if(mStations == null || mStations.size() <= position + 1)
+            return;
+        mCurrentStation = mStations.get(position);
+    }
+
+    public void setCurrentStation(String stationIdentifier) {
+        for(TransitStation station : mStations) {
+            if(TextUtils.equals(stationIdentifier, station.mIdentifier)) {
+                mCurrentStation = station;
+                return;
+            }
+        }
+        Log.d("WhatsUpDog", "setCurrentStation called with id=" + stationIdentifier + ", but no station found");
+    }
+
+    public void init(List<TransitStation> stations) {
+        //mStops = new LinkedList<TransitStation>();
+        mLookup = new HashMap<String, TransitStation>();
+        for(TransitStation station : stations) {
+            //mStops.add(Station);
+            if(mCurrentStation == null) {
+                mCurrentStation = station;
+            }
+            mLookup.put(station.mIdentifier, station);
         }
     }
 
-    public TransitStop next(TransitStop current) {
-        int pos = mStops.indexOf(current);
-        TransitStop next = mStops.get(pos + 1);
+    public TransitStation peekNext(TransitStation current) {
+        if(!hasNext(current)) {
+            return null;
+        }
+        int pos = mStations.indexOf(current);
+        TransitStation next = mStations.get(pos + 1);
         return next;
     }
 
-    public boolean hasNext(TransitStop current) {
-        int pos = mStops.indexOf(current);
-        return mStops.size() > (pos + 1);
+    public TransitStation moveNext(TransitStation current) {
+        if(!hasNext(current)) {
+            return null;
+        }
+        int pos = mStations.indexOf(current);
+        TransitStation next = mStations.get(pos + 1);
+        mCurrentStation = next;
+        return next;
     }
 
-    public TransitStop previous(TransitStop current) {
-        int pos = mStops.indexOf(current);
-        TransitStop previous =mStops.get(pos - 1);
+    public boolean hasNext(TransitStation current) {
+        int pos = mStations.indexOf(current);
+        return mStations.size() > (pos + 1);
+    }
+
+    public TransitStation peekPrevious(TransitStation current) {
+        if(!hasPrevious(current)) {
+            return null;
+        }
+        int pos = mStations.indexOf(current);
+        TransitStation previous = mStations.get(pos - 1);
         return previous;
     }
 
-    public boolean hasPrevious(TransitStop current) {
-        int pos = mStops.indexOf(current);
+    public TransitStation movePrevious(TransitStation current) {
+        if(!hasPrevious(current)) {
+            return null;
+        }
+        int pos = mStations.indexOf(current);
+        TransitStation previous = mStations.get(pos - 1);
+        mCurrentStation = previous;
+        return previous;
+    }
+
+    public boolean hasPrevious(TransitStation current) {
+        int pos = mStations.indexOf(current);
         return pos > 0;
     }
 }

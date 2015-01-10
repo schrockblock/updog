@@ -1,15 +1,18 @@
 package com.wearwolves.updog.model;
 
+import com.android.volley.VolleyError;
 import com.google.gson.annotations.SerializedName;
+import com.wearwolves.updog.com.request.GetStopsByStation;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by adam on 1/10/15.
- * Multiple stops for a given station, for the different inbound/outbound directions.
  */
-public class TransitStop {
-
+public class TransitStation {
     @SerializedName("parent_station")
     public String mParentStationId;
     @SerializedName("parent_station_name")
@@ -26,18 +29,11 @@ public class TransitStop {
     public String mOrder;
 
     public transient ArrayList<TransitLine> mLines;
-
-    public TransitStop(MBTAStop stop) {
-        mParentStationId = stop.mParentId;
-        mParentStationName = stop.mParentName;
-        mIdentifier = stop.mStopId;
-        mName = stop.mStopName;
-        mLatitude = stop.mStopLatitude;
-        mLongitude = stop.mStopLongitude;
-    }
+    public transient ArrayList<TransitStop> mStops;
 
     public void init(ArrayList<TransitLine> lines) {
         mLines = new ArrayList<>();
+        mStops = new ArrayList<>();
         if(lines == null)
             return;
         for(TransitLine line : lines) {
@@ -45,5 +41,11 @@ public class TransitStop {
                 mLines.add(line);
             }
         }
+    }
+
+    public void getStops(GetStopsByStation.OnResultCallback callback) throws JSONException {
+        //call API, get stops on this lat/long
+        GetStopsByStation request = new GetStopsByStation();
+        request.get(this, callback);
     }
 }
