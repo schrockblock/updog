@@ -25,12 +25,6 @@ public class LineActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 mGridPager = (GridViewPager) stub.findViewById(R.id.pager);
                 mGridPager.setAdapter(new LineGridPagerAdapter(LineActivity.this, getFragmentManager()));
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mGridPager.setCurrentItem(1, 0, true);
-                    }
-                });
             }
         });
     }
