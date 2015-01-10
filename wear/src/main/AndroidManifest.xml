@@ -3,12 +3,14 @@
     package="com.wearwolves.updog" >
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_id_updog"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:name=".AppController"
+        android:theme="@android:style/Theme.DeviceDefault" >
         <activity
             android:name=".LineActivity"
             android:label="@string/app_name" >

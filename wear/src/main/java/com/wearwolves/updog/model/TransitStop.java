@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Created by adam on 1/10/15.
+ * Multiple stops for a given station, for the different inbound/outbound directions.
  */
 public class TransitStop {
 
@@ -25,6 +26,15 @@ public class TransitStop {
     public String mOrder;
 
     public transient ArrayList<TransitLine> mLines;
+
+    public TransitStop(MBTAStop stop) {
+        mParentStationId = stop.mParentId;
+        mParentStationName = stop.mParentName;
+        mIdentifier = stop.mStopId;
+        mName = stop.mStopName;
+        mLatitude = stop.mStopLatitude;
+        mLongitude = stop.mStopLongitude;
+    }
 
     public void init(ArrayList<TransitLine> lines) {
         mLines = new ArrayList<>();
