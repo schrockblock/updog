@@ -61,6 +61,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/top"
         android:gravity="center"
         android:background="#ed5837"
         android:layout_alignParentTop="true">
@@ -117,6 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:id="@+id/bottom"
         android:background="#ed5837"
         android:layout_alignParentBottom="true">
 

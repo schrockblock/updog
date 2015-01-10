@@ -8,9 +8,11 @@ import android.support.wearable.view.WatchViewStub;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wearwolves.updog.LineActivity;
 import com.wearwolves.updog.R;
 import com.wearwolves.updog.model.TransitStation;
 import com.wearwolves.updog.model.TransitStop;
@@ -29,6 +31,7 @@ public class StationFragment extends Fragment implements View.OnClickListener{
     private TextView mPreviousStationName;
     private TextView mNextStationName;
     private TransitStation mStation;
+
 
     public StationFragment() {
         super();
@@ -51,6 +54,11 @@ public class StationFragment extends Fragment implements View.OnClickListener{
                 mDestination3 = (TextView) mRootView.findViewById(R.id.tv_dest3);
                 mPreviousStationName = (TextView) mRootView.findViewById(R.id.tv_previous_station);
                 mNextStationName = (TextView) mRootView.findViewById(R.id.tv_next_station);
+                ((ImageView)mRootView.findViewById(R.id.iv_bline)).setOnClickListener(StationFragment.this);
+                ((ImageView)mRootView.findViewById(R.id.iv_cline)).setOnClickListener(StationFragment.this);
+                ((ImageView)mRootView.findViewById(R.id.iv_dline)).setOnClickListener(StationFragment.this);
+                ((ImageView)mRootView.findViewById(R.id.iv_eline)).setOnClickListener(StationFragment.this);
+                ((ImageView)mRootView.findViewById(R.id.iv_redline)).setOnClickListener(StationFragment.this);
 
                 if (mStation != null){
                     mStationName.setText(mStation.mParentStationName);
@@ -74,14 +82,19 @@ public class StationFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_redline:
+                ((LineActivity)getActivity()).setLine("red");
                 break;
             case R.id.iv_bline:
+                ((LineActivity)getActivity()).setLine("green");
                 break;
             case R.id.iv_cline:
+                ((LineActivity)getActivity()).setLine("green");
                 break;
             case R.id.iv_dline:
+                ((LineActivity)getActivity()).setLine("green");
                 break;
             case R.id.iv_eline:
+                ((LineActivity)getActivity()).setLine("green");
                 break;
         }
     }
