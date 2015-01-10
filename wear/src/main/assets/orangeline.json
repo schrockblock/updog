@@ -1,0 +1,22 @@
+{
+	"name" : "Red Line",
+	"identifier" : "redline",
+	"variant" : "",
+	"shorthand" : "RL",
+	"stops" : 
+	[
+		{
+			"name" : "name",
+			"identifier" : "id",
+			"latitude" : 10.001,
+			"longitude" : 42.353
+		},
+		{
+			"name" : "name",
+			"identifier" : "id",
+			"latitude" : 10.001,
+			"longitude" : 42.353
+		},
+		
+	]
+}
