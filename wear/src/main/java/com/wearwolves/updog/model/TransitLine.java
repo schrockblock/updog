@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
+import com.wearwolves.updog.util.MBTAColors;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -110,5 +111,18 @@ public class TransitLine {
     public boolean hasPrevious(TransitStation current) {
         int pos = mStations.indexOf(current);
         return pos > 0;
+    }
+
+    public int getDisplayColor() {
+        return MBTAColors.getColor(this);
+    }
+
+    public int getIndexOfStation(String currentStationID) {
+        for(int x = 0; x < mStations.size(); x++) {
+            if(mStations.get(x).mIdentifier.equals(currentStationID)) {
+                return x;
+            }
+        }
+        return 0;
     }
 }

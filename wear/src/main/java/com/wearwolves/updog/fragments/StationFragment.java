@@ -1,6 +1,7 @@
 package com.wearwolves.updog.fragments;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -14,14 +15,19 @@ import android.widget.TextView;
 
 import com.wearwolves.updog.LineActivity;
 import com.wearwolves.updog.R;
+import com.wearwolves.updog.interfaces.OnLineChangedListener;
+import com.wearwolves.updog.interfaces.StationDisplayInterface;
+import com.wearwolves.updog.model.TransitLine;
 import com.wearwolves.updog.model.TransitStation;
 import com.wearwolves.updog.model.TransitStop;
 import com.wearwolves.updog.views.SeekArc;
 
+import java.util.List;
+
 /**
  * Created by ell on 1/10/15.
  */
-public class StationFragment extends Fragment implements View.OnClickListener{
+public class StationFragment extends Fragment implements View.OnClickListener, StationDisplayInterface {
     private LinearLayout mSeekArc;
     private View mRootView;
     private TextView mStationName;
@@ -31,7 +37,15 @@ public class StationFragment extends Fragment implements View.OnClickListener{
     private TextView mPreviousStationName;
     private TextView mNextStationName;
     private TransitStation mStation;
-
+    private TransitLine mCurrentTransitLine;
+    private TextView mNextStation;
+    private TextView mPrevStation;
+    private LinearLayout mTop;
+    private LinearLayout mBottom;
+    private int mColor;
+    private String mNext;
+    private String mPrev;
+    private OnLineChangedListener mOnLineChangeListener;
 
     public StationFragment() {
         super();
@@ -48,6 +62,10 @@ public class StationFragment extends Fragment implements View.OnClickListener{
                 mSeekArc = (LinearLayout) mRootView.findViewById(R.id.seek_arc);
                 mSeekArc.setVisibility(View.GONE);
 
+                mTop = (LinearLayout)mRootView.findViewById(R.id.top);
+                mBottom = (LinearLayout)mRootView.findViewById(R.id.bottom);
+                mNextStation = (TextView)mRootView.findViewById(R.id.tv_next_station);
+                mPrevStation = (TextView)mRootView.findViewById(R.id.tv_previous_station);
                 mStationName = (TextView) mRootView.findViewById(R.id.tv_name);
                 mDestination1 = (TextView) mRootView.findViewById(R.id.tv_dest1);
                 mDestination2 = (TextView) mRootView.findViewById(R.id.tv_dest2);
@@ -61,40 +79,95 @@ public class StationFragment extends Fragment implements View.OnClickListener{
                 ((ImageView)mRootView.findViewById(R.id.iv_redline)).setOnClickListener(StationFragment.this);
 
                 if (mStation != null){
+                    mStation.setDisplayInterface(StationFragment.this);
                     mStationName.setText(mStation.mParentStationName);
-
+                    mCurrentTransitLine = mStation.getCurrentLine();
                     if (mStation.mLines != null && mStation.mLines.size() > 1){
                         mSeekArc.setVisibility(View.VISIBLE);
                     }else {
                         mSeekArc.setVisibility(View.GONE);
                     }
                 }
+                updatePrevNextHeaders();
             }
         });
         return mRootView;
     }
 
-    public void setStop(TransitStation station) {
+    public void setLineChangeListener(OnLineChangedListener listener) {
+        mOnLineChangeListener = listener;
+    }
+
+    public void setUpcomingStops(List<TransitStop> stops) {
+
+    }
+
+    @Override
+    public void lineChanged(TransitLine line) {
+        mCurrentTransitLine = line;
+        //update view
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    updatePrevNextHeaders();
+                }
+            });
+        }
+        if(mOnLineChangeListener != null) {
+            mOnLineChangeListener.onLineChanged(mCurrentTransitLine, mStation.mIdentifier);
+        }
+    }
+
+    public void setStation(TransitStation station) {
         this.mStation = station;
+    }
+
+    private void updatePrevNextHeaders() {
+        if(mCurrentTransitLine == null) {
+            return;
+        }
+        TransitStation prev = mCurrentTransitLine.peekPrevious(mStation);
+        TransitStation next = mCurrentTransitLine.peekNext(mStation);
+        if(prev == null) {
+            mPreviousStationName.setText("");
+            mTop.setBackgroundColor(Color.TRANSPARENT);
+        } else {
+            mPreviousStationName.setText(prev.getStationDisplayName());
+            mTop.setBackgroundColor(mCurrentTransitLine.getDisplayColor());
+        }
+        if(next == null) {
+            mNextStationName.setText("");
+            mBottom.setBackgroundColor(Color.TRANSPARENT);
+        } else {
+            mNextStationName.setText(next.getStationDisplayName());
+            mBottom.setBackgroundColor(mCurrentTransitLine.getDisplayColor());
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_redline:
-                ((LineActivity)getActivity()).setLine("red");
+                mStation.setCurrentLineByIdentifier("redline");
                 break;
+            /*case R.id.iv_orangeline:
+                mStation.setCurrentLineByIdentifier("orangeline");
+                break;
+            case R.id.iv_blueline:
+                mStation.setCurrentLineByIdentifier("blueline");
+                break;*/
             case R.id.iv_bline:
-                ((LineActivity)getActivity()).setLine("green");
+                mStation.setCurrentLineByIdentifier("greenline-b");
                 break;
             case R.id.iv_cline:
-                ((LineActivity)getActivity()).setLine("green");
+                mStation.setCurrentLineByIdentifier("greenline-c");
                 break;
             case R.id.iv_dline:
-                ((LineActivity)getActivity()).setLine("green");
+                mStation.setCurrentLineByIdentifier("greenline-d");
                 break;
             case R.id.iv_eline:
-                ((LineActivity)getActivity()).setLine("green");
+                mStation.setCurrentLineByIdentifier("greenline-e");
                 break;
         }
     }

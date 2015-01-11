@@ -1,33 +1,17 @@
 package com.wearwolves.updog;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.wearable.view.GridViewPager;
 import android.support.wearable.view.WatchViewStub;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.wearwolves.updog.adapters.LineGridPagerAdapter;
 import com.wearwolves.updog.model.TransitLine;
 import com.wearwolves.updog.util.LinesUtil;
-import com.wearwolves.updog.views.SeekArc;
-
 import java.util.ArrayList;
 
 public class LineActivity extends Activity {
 
     private GridViewPager mGridPager;
-    private TextView mNextStation;
-    private TextView mPrevStation;
-    private LinearLayout mTop;
-    private LinearLayout mBottom;
-    private int mColor;
-    private String mNext;
-    private String mPrev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,54 +34,13 @@ public class LineActivity extends Activity {
         });
     }
 
-    public void setPrev(String name) {
-        mPrev = name;
+    public void lineChanged(final TransitLine line, final int startingRow) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mPrevStation.setText(mPrev);
+                mGridPager.setAdapter(new LineGridPagerAdapter(LineActivity.this, getFragmentManager(), line));
+                mGridPager.setCurrentItem(startingRow, 0);
             }
         });
-    }
-
-    public void setNext(String name) {
-        mNext = name;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mPrevStation.setText(mNext);
-            }
-        });
-    }
-
-    public void setLine(String line) {
-        if(mTop == null) {
-
-            mTop = (LinearLayout)findViewById(R.id.top);
-            mBottom = (LinearLayout)findViewById(R.id.bottom);
-            mNextStation = (TextView)findViewById(R.id.tv_next_station);
-            mPrevStation = (TextView)findViewById(R.id.tv_previous_station);
-        }
-        if(TextUtils.equals(line,"red")) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mTop.setBackgroundResource(R.color.red);
-                    mBottom.setBackgroundResource(R.color.red);
-                    mTop.invalidate();
-                    mBottom.invalidate();
-                }
-            });
-        } else if(TextUtils.equals(line,"green")) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mTop.setBackgroundColor(Color.GREEN);
-                    mBottom.setBackgroundColor(Color.GREEN);
-                    mTop.invalidate();
-                    mBottom.invalidate();
-                }
-            });
-        }
     }
 }
